@@ -4,6 +4,7 @@ import org.acme.entity.Customer;
 import org.acme.services.CustomerService;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -21,7 +22,7 @@ public class CustomerController {
         return customerService.getPerson();
     }
     @POST
-    public Customer addCustomer(Customer newCustomer){
+    public Customer addCustomer(@Valid Customer newCustomer){
         return customerService.addCustomer(newCustomer);
     }
 
