@@ -10,7 +10,6 @@ import java.util.List;
 
 @Path("/customers")
 @Produces(MediaType.APPLICATION_JSON)
-//@Consumes(MediaType.APPLICATION_JSON)
 @Consumes("application/json")
 public class CustomerController {
 
