@@ -39,6 +39,4 @@ public class CustomerController {
     public Customer updateCustomer(Long id, Customer newCustomer){
         return customerService.updateCustomer(id, newCustomer);
     }
-
-
 }
