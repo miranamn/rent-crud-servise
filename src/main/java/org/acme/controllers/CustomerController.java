@@ -22,7 +22,7 @@ public class CustomerController {
 
     @GET
     public List<Customer> getAll(@QueryParam("login") String login) {
-        return customerService.getPerson(login);
+        return customerService.getCustomer(login);
     }
     @POST
     public Customer addCustomer(@Valid Customer newCustomer){

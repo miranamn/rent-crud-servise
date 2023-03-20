@@ -8,7 +8,6 @@ import lombok.ToString;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -28,10 +27,10 @@ public class Landlord extends PanacheEntity {
     @NotBlank(message=MESSAGE_SECOND_NAME)
     private String secondName;
     @Column(length = 50, unique = true)
-    @NotBlank(message=MESSAGE_MAIL_NAME)
+    @NotBlank(message=MESSAGE_MAIL)
     private String mail;
     @Column(length = 20)
-    @NotBlank(message=MESSAGE_LOGIN_NAME)
+    @NotBlank(message=MESSAGE_LOGIN)
     private String login;
     @Column(length = 20)
     @NotBlank(message=SECURITY_PASSWORD)

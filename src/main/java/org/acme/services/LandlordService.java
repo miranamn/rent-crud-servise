@@ -51,13 +51,13 @@ public class LandlordService {
 
     @Transactional
     public Landlord updateLandlord(long id, Landlord newLandlord){
-        Landlord customer = Landlord.findById(id);
+        Landlord landlord = Landlord.findById(id);
         try {
-            customer.setFirstName(newLandlord.getFirstName());
-            customer.setSecondName(newLandlord.getSecondName());
-            customer.setLogin(newLandlord.getLogin());
-            customer.setPassword(newLandlord.getPassword());
-            customer.setPhone(newLandlord.getPhone());
+            landlord.setFirstName(newLandlord.getFirstName());
+            landlord.setSecondName(newLandlord.getSecondName());
+            landlord.setLogin(newLandlord.getLogin());
+            landlord.setPassword(newLandlord.getPassword());
+            landlord.setPhone(newLandlord.getPhone());
         }
         catch (PersistenceException e){
             if(e.getCause() instanceof org.hibernate.exception.ConstraintViolationException) {
@@ -65,6 +65,6 @@ public class LandlordService {
             }
             throw e;
         }
-        return customer;
+        return landlord;
     }
 }

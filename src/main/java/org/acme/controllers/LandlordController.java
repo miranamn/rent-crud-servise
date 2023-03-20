@@ -26,17 +26,17 @@ public class LandlordController {
         return landlordService.getLandlord(login);
     }
     @POST
-    public Landlord addCustomer(@Valid Landlord newLandlord){
+    public Landlord addLandlord(@Valid Landlord newLandlord){
         return landlordService.addLandlord(newLandlord);
     }
     @DELETE
     @Path("/{id}")
-    public Response delCustomer(Long id){
+    public Response delLandlord(Long id){
         return landlordService.deleteLandlord(id);
     }
     @PUT
     @Path("/{id}")
-    public Landlord updateCustomer(Long id, @Valid Landlord newLandlord){
+    public Landlord updateLandlord(Long id, @Valid Landlord newLandlord){
         return landlordService.updateLandlord(id, newLandlord);
     }
 }

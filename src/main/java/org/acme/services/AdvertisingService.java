@@ -1,7 +1,7 @@
 package org.acme.services;
 
 import org.acme.RentException.RentException;
-import org.acme.entity.Customer;
+import org.acme.entity.Advertising;
 
 import javax.inject.Singleton;
 import javax.persistence.PersistenceException;
@@ -14,23 +14,23 @@ import static javax.ws.rs.core.Response.Status.OK;
 
 
 @Singleton
-public class CustomerService {
+public class AdvertisingService {
 
-    public List<Customer> getCustomer(String login) {
-        return login == null ?  getCustomer() : getCustomerByLogin(login);
+    public List<Advertising> getAdvertising(String title) {
+        return title == null ?  getAdvertising() : getAdvertisingByLogin(title);
     }
-    private List<Customer> getCustomer() {
-        return Customer.listAll();
+    private List<Advertising> getAdvertising() {
+        return Advertising.listAll();
     }
 
-    public List<Customer> getCustomerByLogin(String login){
-        return Customer.find("login = ?1", login).list();
+    public List<Advertising> getAdvertisingByLogin(String title){
+        return Advertising.find("title = ?1", title).list();
     }
 
     @Transactional
-    public Customer addCustomer(Customer newCustomer){
+    public Advertising addAdvertising(Advertising newAdvertising){
         try {
-            newCustomer.persistAndFlush();
+            newAdvertising.persistAndFlush();
         }catch (ValidationException e){
             throw new RentException(e.getCause().getCause().getMessage());
         }
@@ -40,27 +40,21 @@ public class CustomerService {
             }
             throw e;
         }
-        return newCustomer;
+        return newAdvertising;
     }
 
     @Transactional
-    public Response deleteCustomer(Long id){
-        Customer.deleteById(id);
+    public Response deleteAdvertising(Long id){
+        Advertising.deleteById(id);
         return Response.status(OK).build();
     }
 
     @Transactional
-    public Customer updateCustomer(long id, Customer newCustomer){
-        Customer customer = Customer.findById(id);
+    public Advertising updateAdvertising(long id, Advertising newAdvertising){
+        Advertising advertising = Advertising.findById(id);
         try {
-            customer.setFirstName(newCustomer.getFirstName());
-            customer.setSecondName(newCustomer.getSecondName());
-            customer.setLogin(newCustomer.getLogin());
-            customer.setPassword(newCustomer.getPassword());
-            customer.setPhone(newCustomer.getPhone());
-        }
-        catch (ValidationException e){
-            throw new RentException(e.getCause().getCause().getMessage());
+            advertising.setDescription(newAdvertising.getDescription());
+            advertising.setMaxTerm(newAdvertising.getMaxTerm());
         }
         catch (PersistenceException e){
             if(e.getCause() instanceof org.hibernate.exception.ConstraintViolationException) {
@@ -68,6 +62,6 @@ public class CustomerService {
             }
             throw e;
         }
-        return customer;
+        return advertising;
     }
 }
