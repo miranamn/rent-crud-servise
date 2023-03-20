@@ -16,7 +16,6 @@ import org.apache.logging.log4j.Logger;
 @Consumes("application/json")
 public class CustomerController {
 
-//TODO: ОТРАБОТАТЬ ЛОВЛЮ ЭКСЕПШЕНОВ
     private static final Logger logger = LogManager.getLogger(CustomerController.class);
     @Inject
     CustomerService customerService;
@@ -36,7 +35,7 @@ public class CustomerController {
     }
     @PUT
     @Path("/{id}")
-    public Customer updateCustomer(Long id, Customer newCustomer){
+    public Customer updateCustomer(Long id, @Valid Customer newCustomer){
         return customerService.updateCustomer(id, newCustomer);
     }
 }

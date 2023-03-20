@@ -59,6 +59,9 @@ public class CustomerService {
             customer.setPassword(newCustomer.getPassword());
             customer.setPhone(newCustomer.getPhone());
         }
+        catch (ValidationException e){
+            throw new RentException(e.getCause().getCause().getMessage());
+        }
         catch (PersistenceException e){
             if(e.getCause() instanceof org.hibernate.exception.ConstraintViolationException) {
                 throw new RentException(e.getCause().getCause().getMessage());

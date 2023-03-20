@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import static org.acme.config.Values.*;
 
 /**Class level annotations*/
@@ -32,7 +34,8 @@ public class Landlord extends PanacheEntity {
     @NotBlank(message=MESSAGE_LOGIN_NAME)
     private String login;
     @Column(length = 20)
-    @Min(message=SECURITY_PASSWORD, value = 6)
+    @NotBlank(message=SECURITY_PASSWORD)
+    @Size(min=6)
     private String password;
     @Column(length = 11)
     private String phone;

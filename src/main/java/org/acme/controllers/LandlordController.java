@@ -12,12 +12,11 @@ import org.acme.entity.Landlord;
 import org.acme.services.LandlordService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-@Path("/customers")
+@Path("/landlords")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes("application/json")
 public class LandlordController {
 
-    //TODO: ОТРАБОТАТЬ ЛОВЛЮ ЭКСЕПШЕНОВ
     private static final Logger logger = LogManager.getLogger(LandlordController.class);
     @Inject
     LandlordService landlordService;
@@ -37,7 +36,7 @@ public class LandlordController {
     }
     @PUT
     @Path("/{id}")
-    public Landlord updateCustomer(Long id, Landlord newLandlord){
+    public Landlord updateCustomer(Long id, @Valid Landlord newLandlord){
         return landlordService.updateLandlord(id, newLandlord);
     }
 }
