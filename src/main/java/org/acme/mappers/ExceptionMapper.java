@@ -13,7 +13,6 @@ public class ExceptionMapper {
         logger.error(x);
         return RestResponse.status(x.response, x.getMessage());
     }
-
     @ServerExceptionMapper
     public RestResponse<String> mapException(Throwable x) {
         logger.error(x);

@@ -28,7 +28,7 @@ public class Customer extends PanacheEntity {
     @Column(length = 50, unique = true)
     @NotBlank(message=MESSAGE_MAIL_NAME)
     private String mail;
-    @Column(length = 20, unique = true)
+    @Column(length = 20)
     @NotBlank(message=MESSAGE_LOGIN_NAME)
     private String login;
     @Column(length = 20)
