@@ -1,6 +1,5 @@
 package org.acme.controllers;
 
-
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -17,7 +16,7 @@ import org.apache.logging.log4j.Logger;
 @Consumes("application/json")
 public class AdvertisingController {
 
-    private static final Logger logger = LogManager.getLogger(LandlordController.class);
+    private static final Logger logger = LogManager.getLogger(AdvertisingController.class);
     @Inject
     AdvertisingService advertisingService;
     @GET

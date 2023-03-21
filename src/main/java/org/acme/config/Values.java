@@ -13,5 +13,6 @@ public final class Values {
     public static final String MESSAGE_CAPACITY = "Capacity may not be blank";
     public static final String MESSAGE_PAYMENT = "Payment per hour may not be blank";
     public static final String MESSAGE_TERM = "Maximum term may not be blank";
+    public static final String MESSAGE_VISITOR_COUNT = "Visitor count may not be blank";
 
 }

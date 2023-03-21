@@ -10,8 +10,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import java.sql.Date;
+import java.time.LocalDate;
 
-import java.util.Date;
 
 import static org.acme.config.Values.*;
 
@@ -37,7 +38,9 @@ public class Advertising extends PanacheEntity{
     @Column(name = "payment_per_hour")
     @NotNull(message=MESSAGE_PAYMENT)
     private int paymentPerHour;
-    private Date data = new Date();
+    private Date data = Date.valueOf(LocalDate.now());
+    @Column(name = "rent_date")
+    private String rentDate;
     @Column(name = "maximum_term")
     @Min(message=MESSAGE_TERM, value = 1)
     private int maxTerm;

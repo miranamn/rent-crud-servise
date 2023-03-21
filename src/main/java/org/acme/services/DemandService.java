@@ -1,7 +1,7 @@
 package org.acme.services;
 
 import org.acme.RentException.RentException;
-import org.acme.entity.Advertising;
+import org.acme.entity.Demand;
 
 import javax.inject.Singleton;
 import javax.persistence.PersistenceException;
@@ -14,23 +14,23 @@ import static javax.ws.rs.core.Response.Status.OK;
 
 
 @Singleton
-public class AdvertisingService {
+public class DemandService {
 
-    public List<Advertising> getAdvertising(String title) {
-        return title == null ?  getAdvertising() : getAdvertisingByTitle(title);
+    public List<Demand> getDemand(String title) {
+        return title == null ?  getDemand() : getDemandByTitle(title);
     }
-    private List<Advertising> getAdvertising() {
-        return Advertising.listAll();
+    private List<Demand> getDemand() {
+        return Demand.listAll();
     }
 
-    public List<Advertising> getAdvertisingByTitle(String title){
-        return Advertising.find("title = ?1", title).list();
+    public List<Demand> getDemandByTitle(String title){
+        return Demand.find("title = ?1", title).list();
     }
 
     @Transactional
-    public Advertising addAdvertising(Advertising newAdvertising){
+    public Demand addDemand(Demand newDemand){
         try {
-            newAdvertising.persistAndFlush();
+            newDemand.persistAndFlush();
         }catch (ValidationException e){
             throw new RentException(e.getCause().getCause().getMessage());
         }
@@ -40,21 +40,22 @@ public class AdvertisingService {
             }
             throw e;
         }
-        return newAdvertising;
+        return newDemand;
     }
 
     @Transactional
-    public Response deleteAdvertising(Long id){
-        Advertising.deleteById(id);
+    public Response deleteDemand(Long id){
+        Demand.deleteById(id);
         return Response.status(OK).build();
     }
 
     @Transactional
-    public Advertising updateAdvertising(long id, Advertising newAdvertising){
-        Advertising advertising = Advertising.findById(id);
+    public Demand updateDemand(long id, Demand newDemand){
+        Demand demand = Demand.findById(id);
         try {
-            advertising.setDescription(newAdvertising.getDescription());
-            advertising.setMaxTerm(newAdvertising.getMaxTerm());
+            demand.setStatus(newDemand.getStatus());
+            demand.setDescription(newDemand.getDescription());
+            demand.setRentTime(newDemand.getRentTime());
         }
         catch (PersistenceException e){
             if(e.getCause() instanceof org.hibernate.exception.ConstraintViolationException) {
@@ -62,6 +63,6 @@ public class AdvertisingService {
             }
             throw e;
         }
-        return advertising;
+        return demand;
     }
 }
