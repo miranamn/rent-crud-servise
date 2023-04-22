@@ -2,6 +2,7 @@ package org.acme.services;
 
 import org.acme.RentException.RentException;
 import org.acme.entity.Advertising;
+import org.acme.entity.Landlord;
 
 import javax.inject.Singleton;
 import javax.persistence.PersistenceException;
@@ -25,6 +26,9 @@ public class AdvertisingService {
 
     public List<Advertising> getAdvertisingByTitle(String title){
         return Advertising.find("title = ?1", title).list();
+    }
+    public List<Advertising> getAdvertisingByLandlordId(Long id){
+        return Advertising.find("landlord_id = ?1", id).list();
     }
 
     @Transactional

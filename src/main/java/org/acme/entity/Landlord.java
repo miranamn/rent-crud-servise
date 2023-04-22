@@ -38,5 +38,4 @@ public class Landlord extends PanacheEntity {
     private String password;
     @Column(length = 11)
     private String phone;
-
 }

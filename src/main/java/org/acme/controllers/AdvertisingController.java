@@ -8,6 +8,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 import org.acme.entity.Advertising;
+import org.acme.entity.Landlord;
 import org.acme.services.AdvertisingService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,17 +24,22 @@ public class AdvertisingController {
     public List<Advertising> getAll(@QueryParam("title") String title) {
         return advertisingService.getAdvertising(title);
     }
+    @GET
+    @Path("/landlord")
+    public List<Advertising> getAllLandlord(@QueryParam("landlord") Long id) {
+        return advertisingService.getAdvertisingByLandlordId(id);
+    }
     @POST
     public Advertising addAdvertising(@Valid Advertising newAdvertising){
         return advertisingService.addAdvertising(newAdvertising);
     }
     @DELETE
-    @Path("/{id}")
+    @Path("/id/{id}")
     public Response delAdvertising(Long id){
         return advertisingService.deleteAdvertising(id);
     }
     @PUT
-    @Path("/{id}")
+    @Path("/id/{id}")
     public Advertising updateAdvertising(Long id, @Valid Advertising newAdvertising){
         return advertisingService.updateAdvertising(id, newAdvertising);
     }
