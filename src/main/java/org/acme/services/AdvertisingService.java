@@ -9,7 +9,10 @@ import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
 import javax.validation.ValidationException;
 import javax.ws.rs.core.Response;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static javax.ws.rs.core.Response.Status.OK;
 
@@ -17,15 +20,20 @@ import static javax.ws.rs.core.Response.Status.OK;
 @Singleton
 public class AdvertisingService {
 
-    public List<Advertising> getAdvertising(String title) {
-        return title == null ?  getAdvertising() : getAdvertisingByTitle(title);
+    public List<Advertising> getAdvertising(Map<String, Object> parameters) {
+        Map<String, Object> nonNullParams = parameters.entrySet().stream()
+                .filter( entry -> entry.getValue() != null )
+                .collect( Collectors.toMap( Map.Entry::getKey, Map.Entry::getValue ) );
+        if (nonNullParams.isEmpty()) {
+            return Advertising.listAll();
+        }
+        String query = nonNullParams.entrySet().stream()
+                .map( entry -> entry.getKey() + "=:" + entry.getKey() )
+                .collect( Collectors.joining(" and ") );
+        return Advertising.find(query, parameters).list();
     }
-    private List<Advertising> getAdvertising() {
+    public List<Advertising> getAdvertising() {
         return Advertising.listAll();
-    }
-
-    public List<Advertising> getAdvertisingByTitle(String title){
-        return Advertising.find("title = ?1", title).list();
     }
     public List<Advertising> getAdvertisingByLandlordId(Long id){
         return Advertising.find("landlord_id = ?1", id).list();
@@ -67,5 +75,10 @@ public class AdvertisingService {
             throw e;
         }
         return advertising;
+    }
+    private static void addIfNotNull(Map<String, Object> map, String key, Object value) {
+        if (value != null) {
+            map.put(key, value);
+        }
     }
 }

@@ -6,6 +6,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.acme.entity.Advertising;
 import org.acme.entity.Landlord;
@@ -21,8 +23,9 @@ public class AdvertisingController {
     @Inject
     AdvertisingService advertisingService;
     @GET
-    public List<Advertising> getAll(@QueryParam("title") String title) {
-        return advertisingService.getAdvertising(title);
+    public List<Advertising> getAll(Map<String, Object> parameters) {
+        if (parameters == null) return advertisingService.getAdvertising();
+        return advertisingService.getAdvertising(parameters);
     }
     @GET
     @Path("/landlord")
